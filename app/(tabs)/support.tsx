@@ -56,23 +56,35 @@ export default function SupportScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
-          <Text style={styles.title}>Support Center</Text>
-          <Text style={styles.subtitle}>We're here to help you</Text>
+          <Text style={styles.title} numberOfLines={0} allowFontScaling={false}>
+            Support Center
+          </Text>
+          <Text style={styles.subtitle} numberOfLines={0} allowFontScaling={false}>
+            We're here to help you
+          </Text>
         </View>
 
         <Card style={styles.emergencyCard}>
           <View style={styles.emergencyHeader}>
             <Phone size={24} color="#DC2626" strokeWidth={2} />
             <View>
-              <Text style={styles.emergencyTitle}>Emergency Support</Text>
-              <Text style={styles.emergencySubtitle}>For urgent travel issues</Text>
+              <Text style={styles.emergencyTitle} numberOfLines={0} allowFontScaling={false}>
+                Emergency Support
+              </Text>
+              <Text style={styles.emergencySubtitle} numberOfLines={0} allowFontScaling={false}>
+                For urgent travel issues
+              </Text>
             </View>
           </View>
-          <Text style={styles.emergencyNumber}>+1 (555) 911-HELP</Text>
+          <Text style={styles.emergencyNumber} numberOfLines={1} allowFontScaling={false}>
+            +1 (555) 911-HELP
+          </Text>
         </Card>
 
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Contact Options</Text>
+          <Text style={styles.sectionTitle} numberOfLines={0} allowFontScaling={false}>
+            Contact Options
+          </Text>
           <View style={styles.optionsContainer}>
             {supportOptions.map((option, index) => (
               <TouchableOpacity
@@ -86,9 +98,15 @@ export default function SupportScreen() {
                     <option.icon size={24} color="#FF6B35" strokeWidth={2} />
                   </View>
                   <View style={styles.optionText}>
-                    <Text style={styles.optionTitle}>{option.title}</Text>
-                    <Text style={styles.optionSubtitle}>{option.subtitle}</Text>
-                    <Text style={styles.optionAvailable}>{option.available}</Text>
+                    <Text style={styles.optionTitle} numberOfLines={0} allowFontScaling={false}>
+                      {option.title}
+                    </Text>
+                    <Text style={styles.optionSubtitle} numberOfLines={0} allowFontScaling={false}>
+                      {option.subtitle}
+                    </Text>
+                    <Text style={styles.optionAvailable} numberOfLines={1} allowFontScaling={false}>
+                      {option.available}
+                    </Text>
                   </View>
                   <ChevronRight size={20} color="#9CA3AF" strokeWidth={2} />
                 </View>
@@ -98,7 +116,9 @@ export default function SupportScreen() {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Popular Topics</Text>
+          <Text style={styles.sectionTitle} numberOfLines={0} allowFontScaling={false}>
+            Popular Topics
+          </Text>
           <Card style={styles.faqCard}>
             {faqCategories.map((category, index) => (
               <TouchableOpacity
@@ -110,7 +130,9 @@ export default function SupportScreen() {
                 onPress={() => console.log(`Open FAQ: ${category}`)}
                 activeOpacity={0.7}
               >
-                <Text style={styles.faqTitle}>{category}</Text>
+                <Text style={styles.faqTitle} numberOfLines={0} allowFontScaling={false}>
+                  {category}
+                </Text>
                 <ChevronRight size={16} color="#9CA3AF" strokeWidth={2} />
               </TouchableOpacity>
             ))}
@@ -139,11 +161,15 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     color: '#111827',
     marginBottom: spacing.xs,
+    flexWrap: 'wrap',
+    lineHeight: typography.heading * 1.2,
   },
   subtitle: {
     fontSize: typography.lg,
     color: '#6B7280',
     fontWeight: '500',
+    flexWrap: 'wrap',
+    lineHeight: typography.lg * 1.2,
   },
   emergencyCard: {
     marginHorizontal: spacing.lg,
@@ -163,17 +189,25 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#991B1B',
     flexWrap: 'wrap',
+    lineHeight: typography.lg * 1.2,
+    flexShrink: 1,
+    minWidth: 0,
   },
   emergencySubtitle: {
     fontSize: typography.md,
     color: '#B91C1C',
     fontWeight: '500',
     flexWrap: 'wrap',
+    lineHeight: typography.md * 1.2,
+    flexShrink: 1,
+    minWidth: 0,
   },
   emergencyNumber: {
     fontSize: typography.xl,
     fontWeight: '700',
     color: '#DC2626',
+    flexWrap: 'wrap',
+    lineHeight: typography.xl * 1.2,
   },
   section: {
     marginBottom: spacing.xxl,
@@ -184,6 +218,8 @@ const styles = StyleSheet.create({
     color: '#111827',
     paddingHorizontal: spacing.lg,
     marginBottom: spacing.sm,
+    flexWrap: 'wrap',
+    lineHeight: typography.xl * 1.2,
   },
   optionsContainer: {
     paddingHorizontal: spacing.lg,
@@ -226,6 +262,9 @@ const styles = StyleSheet.create({
     color: '#111827',
     marginBottom: spacing.xs,
     flexWrap: 'wrap',
+    lineHeight: typography.lg * 1.2,
+    flexShrink: 1,
+    minWidth: 0,
   },
   optionSubtitle: {
     fontSize: typography.md,
@@ -233,11 +272,16 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginBottom: spacing.xs,
     flexWrap: 'wrap',
+    lineHeight: typography.md * 1.2,
+    flexShrink: 1,
+    minWidth: 0,
   },
   optionAvailable: {
     fontSize: typography.sm,
     color: '#059669',
     fontWeight: '600',
+    flexWrap: 'wrap',
+    lineHeight: typography.sm * 1.2,
   },
   faqCard: {
     marginHorizontal: spacing.lg,
@@ -260,5 +304,8 @@ const styles = StyleSheet.create({
     color: '#111827',
     flexWrap: 'wrap',
     flex: 1,
+    lineHeight: typography.lg * 1.2,
+    flexShrink: 1,
+    minWidth: 0,
   },
 });

@@ -55,6 +55,14 @@ export default function BookingDetailsScreen() {
   const router = useRouter();
   const { state, dispatch, formatCurrency, formatDate } = useApp();
   const { currentBooking } = state;
+
+  // Parse route for individual city names
+  const getCityNames = (route: string) => {
+    const parts = route.split('→').map(city => city.trim());
+    return { departure: parts[0]?.toUpperCase() || 'DEPARTURE', arrival: parts[1]?.toUpperCase() || 'ARRIVAL' };
+  };
+
+  const { departure, arrival } = currentBooking ? getCityNames(currentBooking.route) : { departure: 'LOADING', arrival: '...' };
   
   const [showProtectionModal, setShowProtectionModal] = useState(false);
   const [expandedSections, setExpandedSections] = useState<string[]>([]);
@@ -202,8 +210,12 @@ export default function BookingDetailsScreen() {
             </TouchableOpacity>
             
             <View style={styles.headerCenter}>
-              <Text style={styles.headerTitle}>Booking Details</Text>
-              <Text style={styles.headerSubtitle}>New York → Boston</Text>
+              <Text style={styles.headerTitle} numberOfLines={1} allowFontScaling={false}>
+                Booking Details
+              </Text>
+              <Text style={styles.headerSubtitle} numberOfLines={1} allowFontScaling={false}>
+                {currentBooking?.route || 'Loading...'}
+              </Text>
             </View>
             
             <TouchableOpacity style={styles.menuButton}>
@@ -213,7 +225,9 @@ export default function BookingDetailsScreen() {
           
           {/* Progress Indicator */}
           <View style={styles.progressContainer}>
-            <Text style={styles.progressText}>Step 3 of 5</Text>
+            <Text style={styles.progressText} numberOfLines={1} allowFontScaling={false}>
+              Step 3 of 5
+            </Text>
             <View style={styles.progressTrack}>
               <Animated.View style={[styles.progressBar, progressAnimatedStyle]} />
             </View>
@@ -234,7 +248,9 @@ export default function BookingDetailsScreen() {
             <View style={styles.routeHeader}>
               <View style={styles.cityContainer}>
                 <MapPin size={16} color="#FFFFFF" />
-                <Text style={styles.cityText}>NEW YORK</Text>
+                <Text style={styles.cityText} numberOfLines={1} allowFontScaling={false}>
+                  {departure}
+                </Text>
               </View>
               
               <View style={styles.flightPath}>
@@ -248,7 +264,9 @@ export default function BookingDetailsScreen() {
               </View>
               
               <View style={styles.cityContainer}>
-                <Text style={styles.cityText}>BOSTON</Text>
+                <Text style={styles.cityText} numberOfLines={1} allowFontScaling={false}>
+                  {arrival}
+                </Text>
                 <MapPin size={16} color="#FFFFFF" />
               </View>
             </View>
@@ -257,19 +275,27 @@ export default function BookingDetailsScreen() {
             <View style={styles.detailsGrid}>
               <View style={styles.detailItem}>
                 <Calendar size={16} color="rgba(255,255,255,0.8)" />
-                <Text style={styles.detailLabel}>Thu, May 20</Text>
+                <Text style={styles.detailLabel} numberOfLines={1} allowFontScaling={false}>
+                  {currentBooking ? formatDate(currentBooking.departureDate) : 'Loading...'}
+                </Text>
               </View>
               <View style={styles.detailItem}>
                 <Clock size={16} color="rgba(255,255,255,0.8)" />
-                <Text style={styles.detailLabel}>10:00 AM</Text>
+                <Text style={styles.detailLabel} numberOfLines={1} allowFontScaling={false}>
+                  {currentBooking?.departureTime || 'Loading...'}
+                </Text>
               </View>
               <View style={styles.detailItem}>
                 <Plane size={16} color="rgba(255,255,255,0.8)" />
-                <Text style={styles.detailLabel}>Flight AA1234</Text>
+                <Text style={styles.detailLabel} numberOfLines={1} allowFontScaling={false}>
+                  Flight AA1234
+                </Text>
               </View>
               <View style={styles.detailItem}>
                 <Users size={16} color="rgba(255,255,255,0.8)" />
-                <Text style={styles.detailLabel}>1 Passenger</Text>
+                <Text style={styles.detailLabel} numberOfLines={1} allowFontScaling={false}>
+                  1 Passenger
+                </Text>
               </View>
             </View>
 
@@ -277,11 +303,15 @@ export default function BookingDetailsScreen() {
             <View style={styles.statusRow}>
               <View style={styles.statusBadge}>
                 <View style={styles.statusDot} />
-                <Text style={styles.statusText}>On Time</Text>
+                <Text style={styles.statusText} numberOfLines={1} allowFontScaling={false}>
+                  On Time
+                </Text>
               </View>
               <View style={styles.durationBadge}>
                 <Timer size={14} color="rgba(255,255,255,0.9)" />
-                <Text style={styles.durationText}>1h 30min</Text>
+                <Text style={styles.durationText} numberOfLines={1} allowFontScaling={false}>
+                  1h 30min
+                </Text>
               </View>
             </View>
           </LinearGradient>
@@ -291,24 +321,36 @@ export default function BookingDetailsScreen() {
         <Animated.View style={[styles.pricingSection, pricingAnimatedStyle]}>
           <View style={styles.sectionHeader}>
             <DollarSign size={20} color="#FF6B35" strokeWidth={2.5} />
-            <Text style={styles.sectionTitle}>PRICING BREAKDOWN</Text>
+            <Text style={styles.sectionTitle} numberOfLines={1} allowFontScaling={false}>
+              PRICING BREAKDOWN
+            </Text>
           </View>
 
           <View style={styles.pricingCard}>
             <View style={styles.priceRow}>
-              <Text style={styles.priceLabel}>Base Fare</Text>
-              <Text style={styles.priceValue}>{formatCurrency(currentBooking.baseFare)}</Text>
+              <Text style={styles.priceLabel} numberOfLines={1} allowFontScaling={false}>
+                Base Fare
+              </Text>
+              <Text style={styles.priceValue} numberOfLines={1} allowFontScaling={false}>
+                {formatCurrency(currentBooking.baseFare)}
+              </Text>
             </View>
             <View style={styles.priceRow}>
-              <Text style={styles.priceLabel}>Taxes & Fees</Text>
-              <Text style={styles.priceValue}>{formatCurrency(currentBooking.taxes)}</Text>
+              <Text style={styles.priceLabel} numberOfLines={1} allowFontScaling={false}>
+                Taxes & Fees
+              </Text>
+              <Text style={styles.priceValue} numberOfLines={1} allowFontScaling={false}>
+                {formatCurrency(currentBooking.taxes)}
+              </Text>
             </View>
             
             {/* Assured Fee Row with State */}
             <View style={[styles.priceRow, styles.assuredFeeRow]}>
               <View style={styles.assuredFeeLabel}>
                 <Shield size={16} color={currentBooking.hasAssuredFee ? "#27AE60" : "#EF4444"} />
-                <Text style={styles.priceLabel}>Assured Fee</Text>
+                <Text style={styles.priceLabel} numberOfLines={1} allowFontScaling={false}>
+                  Assured Fee
+                </Text>
                 {currentBooking.hasAssuredFee ? (
                   <CheckCircle size={16} color="#27AE60" />
                 ) : (
@@ -327,10 +369,12 @@ export default function BookingDetailsScreen() {
 
             {/* Total with Animation */}
             <Animated.View style={[styles.totalRow, priceAnimatedStyle]}>
-              <Text style={styles.totalLabel}>
+              <Text style={styles.totalLabel} numberOfLines={1} allowFontScaling={false}>
                 {currentBooking.hasAssuredFee ? 'Total' : 'Subtotal'}
               </Text>
-              <Text style={styles.totalValue}>{formatCurrency(currentTotal)}</Text>
+              <Text style={styles.totalValue} numberOfLines={1} allowFontScaling={false}>
+                {formatCurrency(currentTotal)}
+              </Text>
             </Animated.View>
 
             {/* Protection Status */}
@@ -338,12 +382,16 @@ export default function BookingDetailsScreen() {
               {currentBooking.hasAssuredFee ? (
                 <>
                   <CheckCircle size={20} color="#27AE60" />
-                  <Text style={styles.protectedText}>✅ FULLY PROTECTED</Text>
+                  <Text style={styles.protectedText} numberOfLines={1} allowFontScaling={false}>
+                    ✅ FULLY PROTECTED
+                  </Text>
                 </>
               ) : (
                 <>
                   <Shield size={20} color="#FF6B35" />
-                  <Text style={styles.unprotectedText}>🛡️ PROTECTION AVAILABLE</Text>
+                  <Text style={styles.unprotectedText} numberOfLines={1} allowFontScaling={false}>
+                    🛡️ PROTECTION AVAILABLE
+                  </Text>
                 </>
               )}
             </View>
@@ -353,7 +401,7 @@ export default function BookingDetailsScreen() {
               onPress={() => setShowProtectionModal(true)}
             >
               <Info size={16} color="#6B7280" />
-              <Text style={styles.protectionInfoText}>
+              <Text style={styles.protectionInfoText} numberOfLines={1} allowFontScaling={false}>
                 {currentBooking.hasAssuredFee ? 'View protection details' : 'See what\'s covered'}
               </Text>
             </TouchableOpacity>
@@ -369,25 +417,35 @@ export default function BookingDetailsScreen() {
             >
               <View style={styles.benefitsHeader}>
                 <Shield size={24} color="#27AE60" strokeWidth={2.5} />
-                <Text style={styles.benefitsTitle}>TRAVEL WITH CONFIDENCE</Text>
+                <Text style={styles.benefitsTitle} numberOfLines={1} allowFontScaling={false}>
+                  TRAVEL WITH CONFIDENCE
+                </Text>
               </View>
 
               <View style={styles.benefitsList}>
                 <View style={styles.benefitItem}>
                   <CheckCircle size={20} color="#27AE60" />
-                  <Text style={styles.benefitText}>Full refund if plans change</Text>
+                  <Text style={styles.benefitText} numberOfLines={0} allowFontScaling={false}>
+                    Full refund if plans change
+                  </Text>
                 </View>
                 <View style={styles.benefitItem}>
                   <CheckCircle size={20} color="#27AE60" />
-                  <Text style={styles.benefitText}>One free date/time change</Text>
+                  <Text style={styles.benefitText} numberOfLines={0} allowFontScaling={false}>
+                    One free date/time change
+                  </Text>
                 </View>
                 <View style={styles.benefitItem}>
                   <CheckCircle size={20} color="#27AE60" />
-                  <Text style={styles.benefitText}>Priority customer support</Text>
+                  <Text style={styles.benefitText} numberOfLines={0} allowFontScaling={false}>
+                    Priority customer support
+                  </Text>
                 </View>
                 <View style={styles.benefitItem}>
                   <CheckCircle size={20} color="#27AE60" />
-                  <Text style={styles.benefitText}>Peace of mind guarantee</Text>
+                  <Text style={styles.benefitText} numberOfLines={0} allowFontScaling={false}>
+                    Peace of mind guarantee
+                  </Text>
                 </View>
               </View>
 
@@ -395,16 +453,22 @@ export default function BookingDetailsScreen() {
               <View style={styles.socialProof}>
                 <View style={styles.proofItem}>
                   <Zap size={16} color="#FF6B35" />
-                  <Text style={styles.proofText}>94% of travelers recommend</Text>
+                  <Text style={styles.proofText} numberOfLines={0} allowFontScaling={false}>
+                    94% of travelers recommend
+                  </Text>
                 </View>
                 <View style={styles.proofItem}>
                   <TrendingUp size={16} color="#27AE60" />
-                  <Text style={styles.proofText}>Only $25 for complete freedom</Text>
+                  <Text style={styles.proofText} numberOfLines={0} allowFontScaling={false}>
+                    Only $25 for complete freedom
+                  </Text>
                 </View>
               </View>
 
               <View style={styles.urgencyIndicator}>
-                <Text style={styles.urgencyText}>💡 Save $15 vs adding later</Text>
+                <Text style={styles.urgencyText} numberOfLines={0} allowFontScaling={false}>
+                  💡 Save $15 vs adding later
+                </Text>
               </View>
             </LinearGradient>
           </Animated.View>
@@ -419,17 +483,23 @@ export default function BookingDetailsScreen() {
                   <Star key={i} size={12} color="#FFD700" fill="#FFD700" />
                 ))}
               </View>
-              <Text style={styles.trustText}>4.8/5 from 12K+ bookings</Text>
+              <Text style={styles.trustText} numberOfLines={0} allowFontScaling={false}>
+                4.8/5 from 12K+ bookings
+              </Text>
             </View>
             <View style={styles.trustBadge}>
               <Shield size={14} color="#27AE60" />
-              <Text style={styles.trustText}>Secure payment protected</Text>
+              <Text style={styles.trustText} numberOfLines={0} allowFontScaling={false}>
+                Secure payment protected
+              </Text>
             </View>
           </View>
           
           <View style={styles.recentActivity}>
             <TrendingUp size={14} color="#FF6B35" />
-            <Text style={styles.activityText}>3 people booked this route today</Text>
+            <Text style={styles.activityText} numberOfLines={0} allowFontScaling={false}>
+              3 people booked this route today
+            </Text>
           </View>
         </View>
 
@@ -449,7 +519,9 @@ export default function BookingDetailsScreen() {
                   end={{ x: 1, y: 0 }}
                 >
                   <Shield size={20} color="#FFFFFF" strokeWidth={2.5} />
-                  <Text style={styles.primaryButtonText}>Add Assured Fee - $25</Text>
+                  <Text style={styles.primaryButtonText} numberOfLines={1} allowFontScaling={false}>
+                    Add Assured Fee - $25
+                  </Text>
                 </LinearGradient>
               </TouchableOpacity>
 
@@ -582,11 +654,15 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#FFFFFF',
     textAlign: 'center',
+    flexWrap: 'wrap',
+    lineHeight: 24,
   },
   headerSubtitle: {
     fontSize: 14,
     color: 'rgba(255,255,255,0.9)',
     fontWeight: '500',
+    flexWrap: 'wrap',
+    lineHeight: 18,
   },
   menuButton: {
     width: 44,
@@ -624,24 +700,26 @@ const styles = StyleSheet.create({
   
   // Hero Section
   heroSection: {
-    paddingHorizontal: 20,
-    paddingTop: 20,
-    paddingBottom: 16,
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.lg,
+    paddingBottom: spacing.lg,
   },
   heroCard: {
-    borderRadius: 20,
-    padding: 24,
+    borderRadius: rs(20),
+    padding: spacing.xxl,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 8 },
+    shadowOffset: { width: 0, height: rs(8) },
     shadowOpacity: 0.15,
-    shadowRadius: 16,
+    shadowRadius: rs(16),
     elevation: 8,
   },
   routeHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 20,
+    marginBottom: spacing.lg,
+    flexWrap: 'wrap',
+    gap: spacing.sm,
   },
   cityContainer: {
     flexDirection: 'row',
@@ -653,6 +731,10 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#FFFFFF',
     letterSpacing: 0.5,
+    flexWrap: 'wrap',
+    lineHeight: 20,
+    flexShrink: 1,
+    minWidth: 0,
   },
   flightPath: {
     flexDirection: 'row',
@@ -689,6 +771,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: 'rgba(255,255,255,0.9)',
     fontWeight: '500',
+    flexWrap: 'wrap',
+    lineHeight: 18,
   },
   statusRow: {
     flexDirection: 'row',
@@ -728,57 +812,73 @@ const styles = StyleSheet.create({
   
   // Pricing Section
   pricingSection: {
-    paddingHorizontal: 20,
-    paddingBottom: 16,
+    paddingHorizontal: spacing.lg,
+    paddingBottom: spacing.lg,
   },
   sectionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
-    marginBottom: 12,
+    gap: spacing.sm,
+    marginBottom: spacing.sm,
   },
   sectionTitle: {
-    fontSize: 16,
+    fontSize: typography.lg,
     fontWeight: '700',
     color: '#374151',
     letterSpacing: 0.5,
+    flexWrap: 'wrap',
+    lineHeight: typography.lg * 1.2,
+    flexShrink: 1,
+    minWidth: 0,
   },
   pricingCard: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 16,
-    padding: 20,
+    borderRadius: rs(16),
+    padding: spacing.lg,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0, height: rs(2) },
     shadowOpacity: 0.1,
-    shadowRadius: 8,
+    shadowRadius: rs(8),
     elevation: 4,
+    flexShrink: 1,
+    minWidth: 0,
   },
   priceRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 8,
+    paddingVertical: spacing.sm,
+    gap: spacing.sm,
   },
   assuredFeeRow: {
     backgroundColor: '#F9FAFB',
-    marginHorizontal: -12,
-    paddingHorizontal: 12,
-    borderRadius: 8,
+    marginHorizontal: -spacing.sm,
+    paddingHorizontal: spacing.sm,
+    borderRadius: rs(8),
   },
   assuredFeeLabel: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
+    gap: spacing.xs,
+    flex: 1,
+    flexShrink: 1,
   },
   priceLabel: {
-    fontSize: 16,
+    fontSize: typography.lg,
     color: '#6B7280',
     fontWeight: '500',
+    flexWrap: 'wrap',
+    flexShrink: 1,
+    minWidth: 0,
+    lineHeight: typography.lg * 1.2,
   },
   priceValue: {
-    fontSize: 16,
+    fontSize: typography.lg,
     color: '#111827',
     fontWeight: '600',
+    textAlign: 'right',
+    flexShrink: 0,
+    lineHeight: typography.lg * 1.2,
   },
   includedPrice: {
     color: '#27AE60',
@@ -803,11 +903,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#111827',
     fontWeight: '700',
+    flexWrap: 'wrap',
+    lineHeight: 22,
   },
   totalValue: {
     fontSize: 20,
     color: '#FF6B35',
     fontWeight: '800',
+    lineHeight: 24,
   },
   protectionStatus: {
     flexDirection: 'row',
@@ -890,6 +993,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: '#374151',
     fontWeight: '500',
+    flexWrap: 'wrap',
+    lineHeight: 20,
+    flexShrink: 1,
+    minWidth: 0,
   },
   socialProof: {
     gap: 8,

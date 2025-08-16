@@ -34,7 +34,7 @@ export function Button({
   ];
 
   const textStyle = [
-    styles.text,
+    styles.buttonText,
     styles[`${variant}Text`],
     styles[`${size}Text`],
     disabled && styles.disabledText,
@@ -47,7 +47,9 @@ export function Button({
       disabled={disabled}
       activeOpacity={0.8}
     >
-      <Text style={textStyle}>{title}</Text>
+      <Text style={textStyle} numberOfLines={0} allowFontScaling={false}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 }
@@ -58,6 +60,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
+    flexShrink: 0,
   },
   primary: {
     backgroundColor: '#FF6B35',
@@ -98,10 +101,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#D1D5DB',
     borderColor: '#D1D5DB',
   },
-  text: {
+  buttonText: {
     fontWeight: '600',
     textAlign: 'center',
     flexWrap: 'wrap',
+    flexShrink: 1,
+    minWidth: 0,
   },
   primaryText: {
     color: '#FFFFFF',

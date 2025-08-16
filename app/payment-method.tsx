@@ -5,7 +5,7 @@ import { useRouter } from 'expo-router';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { useApp } from '@/context/AppContext';
-import { spacing, typography, touchTarget } from '@/utils/responsive';
+import { spacing, typography, touchTarget, rs } from '@/utils/responsive';
 import {
   ArrowLeft,
   CreditCard,
@@ -254,46 +254,54 @@ const styles = StyleSheet.create({
   methodContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 16,
-    gap: 16,
+    padding: spacing.lg,
+    gap: spacing.lg,
   },
   methodIcon: {
-    width: 40,
-    height: 40,
+    width: touchTarget(40),
+    height: touchTarget(40),
     borderRadius: 20,
     backgroundColor: '#F3F4F6',
     justifyContent: 'center',
     alignItems: 'center',
+    flexShrink: 0,
   },
   methodText: {
     flex: 1,
+    flexShrink: 1,
+    minWidth: 0,
   },
   methodHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
-    marginBottom: 2,
+    gap: spacing.xs,
+    marginBottom: spacing.xs / 2,
+    flexWrap: 'wrap',
   },
   methodTitle: {
-    fontSize: 16,
+    fontSize: typography.lg,
     fontWeight: '600',
     color: '#111827',
+    flexWrap: 'wrap',
+    flexShrink: 1,
   },
   popularBadge: {
     backgroundColor: '#FF6B35',
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 4,
+    paddingHorizontal: spacing.xs,
+    paddingVertical: spacing.xs / 2,
+    borderRadius: rs(4),
+    flexShrink: 0,
   },
   popularText: {
-    fontSize: 10,
+    fontSize: typography.xs,
     color: '#FFFFFF',
     fontWeight: '600',
   },
   methodSubtitle: {
-    fontSize: 14,
+    fontSize: typography.md,
     color: '#6B7280',
     fontWeight: '400',
+    flexWrap: 'wrap',
   },
   actionSection: {
     flexDirection: 'row',

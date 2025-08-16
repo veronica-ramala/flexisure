@@ -1,16 +1,22 @@
 import React, { ReactNode } from 'react';
 import { View, StyleSheet, ViewStyle } from 'react-native';
-import { spacing, rs } from '@/utils/responsive';
+import { spacing, rs, wp } from '@/utils/responsive';
 
 interface CardProps {
   children: ReactNode;
   style?: ViewStyle;
   padding?: number;
+  maxWidth?: number;
 }
 
-export function Card({ children, style, padding = spacing.lg }: CardProps) {
+export function Card({ children, style, padding = spacing.lg, maxWidth }: CardProps) {
   return (
-    <View style={[styles.card, { padding }, style]}>
+    <View style={[
+      styles.card, 
+      { padding },
+      maxWidth && { maxWidth: wp(maxWidth) },
+      style
+    ]}>
       {children}
     </View>
   );

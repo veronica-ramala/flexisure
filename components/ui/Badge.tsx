@@ -15,7 +15,9 @@ export function Badge({ text, variant = 'info', showIcon = false }: BadgeProps) 
       {showIcon && variant === 'success' && (
         <CheckCircle size={14} color="#059669" strokeWidth={2} />
       )}
-      <Text style={[styles.text, styles[`${variant}Text`]]}>{text}</Text>
+      <Text style={[styles.text, styles[`${variant}Text`]]} numberOfLines={0} allowFontScaling={false}>
+        {text}
+      </Text>
     </View>
   );
 }
@@ -45,6 +47,9 @@ const styles = StyleSheet.create({
     fontSize: typography.sm,
     fontWeight: '600',
     flexWrap: 'wrap',
+    flexShrink: 1,
+    minWidth: 0,
+    lineHeight: typography.sm * 1.2,
   },
   successText: {
     color: '#059669',

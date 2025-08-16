@@ -33,8 +33,12 @@ export default function HomeScreen() {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.emptyState}>
-          <Text style={styles.emptyTitle}>No Active Booking</Text>
-          <Text style={styles.emptyText}>Start by searching for your next trip</Text>
+          <Text style={styles.emptyTitle} numberOfLines={0} allowFontScaling={false}>
+            No Active Booking
+          </Text>
+          <Text style={styles.emptyText} numberOfLines={0} allowFontScaling={false}>
+            Start by searching for your next trip
+          </Text>
         </View>
       </SafeAreaView>
     );
@@ -44,8 +48,12 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
-          <Text style={styles.title}>Your Booking</Text>
-          <Text style={styles.subtitle}>Review your trip details and options</Text>
+          <Text style={styles.title} numberOfLines={0} allowFontScaling={false}>
+            Your Booking
+          </Text>
+          <Text style={styles.subtitle} numberOfLines={0} allowFontScaling={false}>
+            Review your trip details and options
+          </Text>
         </View>
 
         <BookingCard booking={currentBooking} />
@@ -63,9 +71,11 @@ export default function HomeScreen() {
           <View style={styles.assuredFeeSection}>
             <View style={styles.infoHeader}>
               <Info size={20} color="#FF6B35" strokeWidth={2} />
-              <Text style={styles.infoTitle}>Add Peace of Mind</Text>
+              <Text style={styles.infoTitle} numberOfLines={0} allowFontScaling={false}>
+                Add Peace of Mind
+              </Text>
             </View>
-            <Text style={styles.infoText}>
+            <Text style={styles.infoText} numberOfLines={0} allowFontScaling={false}>
               Add our Assured Fee for full flexibility and priority support
             </Text>
             <Button
@@ -127,11 +137,15 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     color: '#111827',
     marginBottom: spacing.xs,
+    flexWrap: 'wrap',
+    lineHeight: typography.heading * 1.2,
   },
   subtitle: {
     fontSize: typography.lg,
     color: '#6B7280',
     fontWeight: '500',
+    flexWrap: 'wrap',
+    lineHeight: typography.lg * 1.2,
   },
   emptyState: {
     flex: 1,
@@ -145,12 +159,17 @@ const styles = StyleSheet.create({
     color: '#111827',
     marginBottom: spacing.sm,
     textAlign: 'center',
+    flexWrap: 'wrap',
+    lineHeight: typography.xxxl * 1.2,
   },
   emptyText: {
     fontSize: typography.lg,
     color: '#6B7280',
     textAlign: 'center',
     flexWrap: 'wrap',
+    lineHeight: typography.lg * 1.2,
+    flexShrink: 1,
+    minWidth: 0,
   },
   quickActionsSection: {
     paddingHorizontal: spacing.lg,
@@ -180,6 +199,8 @@ const styles = StyleSheet.create({
     fontSize: typography.lg,
     fontWeight: '700',
     color: '#EA580C',
+    flexWrap: 'wrap',
+    lineHeight: typography.lg * 1.2,
   },
   infoText: {
     fontSize: typography.md,
@@ -187,6 +208,8 @@ const styles = StyleSheet.create({
     marginBottom: spacing.lg,
     lineHeight: typography.md * 1.5,
     flexWrap: 'wrap',
+    flexShrink: 1,
+    minWidth: 0,
   },
   assuredFeeButton: {
     backgroundColor: '#FF6B35',

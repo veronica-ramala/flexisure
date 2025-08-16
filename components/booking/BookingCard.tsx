@@ -18,7 +18,9 @@ export function BookingCard({ booking }: BookingCardProps) {
       <View style={styles.header}>
         <View style={styles.routeContainer}>
           <Plane size={20} color="#FF6B35" strokeWidth={2} />
-          <Text style={styles.route}>{booking.route}</Text>
+          <Text style={styles.route} numberOfLines={0} allowFontScaling={false}>
+            {booking.route}
+          </Text>
         </View>
         {booking.hasAssuredFee && (
           <Badge text="Assured Fee Added" variant="success" showIcon />
@@ -28,11 +30,15 @@ export function BookingCard({ booking }: BookingCardProps) {
       <View style={styles.details}>
         <View style={styles.detailRow}>
           <Calendar size={16} color="#6B7280" strokeWidth={2} />
-          <Text style={styles.detailText}>{formatDate(booking.departureDate)}</Text>
+          <Text style={styles.detailText} numberOfLines={0} allowFontScaling={false}>
+            {formatDate(booking.departureDate)}
+          </Text>
         </View>
         <View style={styles.detailRow}>
           <Clock size={16} color="#6B7280" strokeWidth={2} />
-          <Text style={styles.detailText}>{booking.departureTime}</Text>
+          <Text style={styles.detailText} numberOfLines={0} allowFontScaling={false}>
+            {booking.departureTime}
+          </Text>
         </View>
       </View>
 
@@ -40,22 +46,36 @@ export function BookingCard({ booking }: BookingCardProps) {
 
       <View style={styles.pricing}>
         <View style={styles.priceRow}>
-          <Text style={styles.priceLabel}>Base Fare</Text>
-          <Text style={styles.priceValue}>{formatCurrency(booking.baseFare)}</Text>
+          <Text style={styles.priceLabel} numberOfLines={0} allowFontScaling={false}>
+            Base Fare
+          </Text>
+          <Text style={styles.priceValue} numberOfLines={1} allowFontScaling={false}>
+            {formatCurrency(booking.baseFare)}
+          </Text>
         </View>
         <View style={styles.priceRow}>
-          <Text style={styles.priceLabel}>Taxes & Fees</Text>
-          <Text style={styles.priceValue}>{formatCurrency(booking.taxes)}</Text>
+          <Text style={styles.priceLabel} numberOfLines={0} allowFontScaling={false}>
+            Taxes & Fees
+          </Text>
+          <Text style={styles.priceValue} numberOfLines={1} allowFontScaling={false}>
+            {formatCurrency(booking.taxes)}
+          </Text>
         </View>
         {booking.hasAssuredFee && (
           <View style={styles.priceRow}>
-            <Text style={styles.priceLabel}>Assured Fee</Text>
-            <Text style={styles.priceValue}>{formatCurrency(booking.assuredFee)}</Text>
+            <Text style={styles.priceLabel} numberOfLines={0} allowFontScaling={false}>
+              Assured Fee
+            </Text>
+            <Text style={styles.priceValue} numberOfLines={1} allowFontScaling={false}>
+              {formatCurrency(booking.assuredFee)}
+            </Text>
           </View>
         )}
         <View style={[styles.priceRow, styles.totalRow]}>
-          <Text style={styles.totalLabel}>Total</Text>
-          <Text style={styles.totalValue}>
+          <Text style={styles.totalLabel} numberOfLines={0} allowFontScaling={false}>
+            Total
+          </Text>
+          <Text style={styles.totalValue} numberOfLines={1} allowFontScaling={false}>
             {formatCurrency(
               booking.baseFare + 
               booking.taxes + 
@@ -84,6 +104,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: spacing.sm,
     flex: 1,
+    flexShrink: 1,
+    minWidth: 0,
   },
   route: {
     fontSize: typography.xl,
@@ -91,6 +113,9 @@ const styles = StyleSheet.create({
     color: '#111827',
     flexWrap: 'wrap',
     flex: 1,
+    flexShrink: 1,
+    minWidth: 0,
+    lineHeight: typography.xl * 1.2,
   },
   details: {
     gap: spacing.sm,

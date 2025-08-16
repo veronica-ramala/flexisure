@@ -78,8 +78,12 @@ export default function ManageScreen() {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.emptyState}>
-          <Text style={styles.emptyTitle}>No Booking to Manage</Text>
-          <Text style={styles.emptyText}>Create a booking first to manage it</Text>
+          <Text style={styles.emptyTitle} numberOfLines={0} allowFontScaling={false}>
+            No Booking to Manage
+          </Text>
+          <Text style={styles.emptyText} numberOfLines={0} allowFontScaling={false}>
+            Create a booking first to manage it
+          </Text>
         </View>
       </SafeAreaView>
     );
@@ -89,16 +93,22 @@ export default function ManageScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
-          <Text style={styles.title}>Manage Booking</Text>
-          <Text style={styles.subtitle}>Make changes to your trip</Text>
+          <Text style={styles.title} numberOfLines={0} allowFontScaling={false}>
+            Manage Booking
+          </Text>
+          <Text style={styles.subtitle} numberOfLines={0} allowFontScaling={false}>
+            Make changes to your trip
+          </Text>
         </View>
 
         <Card style={styles.bookingInfoCard}>
-          <Text style={styles.bookingRoute}>{currentBooking.route}</Text>
-          <Text style={styles.bookingDate}>
+          <Text style={styles.bookingRoute} numberOfLines={0} allowFontScaling={false}>
+            {currentBooking.route}
+          </Text>
+          <Text style={styles.bookingDate} numberOfLines={0} allowFontScaling={false}>
             {currentBooking.departureDate} at {currentBooking.departureTime}
           </Text>
-          <Text style={styles.bookingStatus}>
+          <Text style={styles.bookingStatus} numberOfLines={0} allowFontScaling={false}>
             Status: {currentBooking.status.charAt(0).toUpperCase() + currentBooking.status.slice(1)}
           </Text>
         </Card>
@@ -128,10 +138,14 @@ export default function ManageScreen() {
                       styles.optionTitle,
                       option.destructive && styles.destructiveText,
                     ]}
+                    numberOfLines={0}
+                    allowFontScaling={false}
                   >
                     {option.title}
                   </Text>
-                  <Text style={styles.optionSubtitle}>{option.subtitle}</Text>
+                  <Text style={styles.optionSubtitle} numberOfLines={0} allowFontScaling={false}>
+                    {option.subtitle}
+                  </Text>
                 </View>
                 <ChevronRight
                   size={20}
@@ -165,11 +179,15 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     color: '#111827',
     marginBottom: spacing.xs,
+    flexWrap: 'wrap',
+    lineHeight: typography.heading * 1.2,
   },
   subtitle: {
     fontSize: typography.lg,
     color: '#6B7280',
     fontWeight: '500',
+    flexWrap: 'wrap',
+    lineHeight: typography.lg * 1.2,
   },
   emptyState: {
     flex: 1,
@@ -183,12 +201,17 @@ const styles = StyleSheet.create({
     color: '#111827',
     marginBottom: spacing.sm,
     textAlign: 'center',
+    flexWrap: 'wrap',
+    lineHeight: typography.xxxl * 1.2,
   },
   emptyText: {
     fontSize: typography.lg,
     color: '#6B7280',
     textAlign: 'center',
     flexWrap: 'wrap',
+    lineHeight: typography.lg * 1.2,
+    flexShrink: 1,
+    minWidth: 0,
   },
   bookingInfoCard: {
     marginHorizontal: spacing.lg,
@@ -200,17 +223,24 @@ const styles = StyleSheet.create({
     color: '#111827',
     marginBottom: spacing.xs,
     flexWrap: 'wrap',
+    lineHeight: typography.xl * 1.2,
+    flexShrink: 1,
+    minWidth: 0,
   },
   bookingDate: {
     fontSize: typography.lg,
     color: '#6B7280',
     fontWeight: '500',
     marginBottom: spacing.xs,
+    flexWrap: 'wrap',
+    lineHeight: typography.lg * 1.2,
   },
   bookingStatus: {
     fontSize: typography.md,
     color: '#059669',
     fontWeight: '600',
+    flexWrap: 'wrap',
+    lineHeight: typography.md * 1.2,
   },
   optionsContainer: {
     paddingHorizontal: spacing.lg,
@@ -258,6 +288,9 @@ const styles = StyleSheet.create({
     color: '#111827',
     marginBottom: spacing.xs,
     flexWrap: 'wrap',
+    lineHeight: typography.lg * 1.2,
+    flexShrink: 1,
+    minWidth: 0,
   },
   destructiveText: {
     color: '#DC2626',
@@ -267,5 +300,8 @@ const styles = StyleSheet.create({
     color: '#6B7280',
     fontWeight: '400',
     flexWrap: 'wrap',
+    lineHeight: typography.md * 1.2,
+    flexShrink: 1,
+    minWidth: 0,
   },
 });

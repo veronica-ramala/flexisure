@@ -72,7 +72,37 @@ export const breakpoints = {
   small: 375,
   medium: 414,
   large: 480,
+  xlarge: 600,
 };
+
+// Helper function for text container styles that ensure wrapping
+export const getTextContainerStyle = () => ({
+  flexShrink: 1,
+  minWidth: 0,
+  flexWrap: 'wrap' as const,
+});
+
+// Helper function for responsive text style
+export const getResponsiveTextStyle = (baseSize: keyof typeof typography) => ({
+  fontSize: typography[baseSize],
+  flexWrap: 'wrap' as const,
+  flexShrink: 1,
+  minWidth: 0,
+  lineHeight: typography[baseSize] * 1.2,
+});
+
+// Helper for ensuring text never gets cut off
+export const getWrapTextStyle = () => ({
+  flexWrap: 'wrap' as const,
+  flexShrink: 1,
+  minWidth: 0,
+});
+
+// Helper for single line text that should truncate gracefully
+export const getSingleLineTextStyle = () => ({
+  flexShrink: 1,
+  minWidth: 0,
+});
 
 export const getScreenSize = (): 'small' | 'medium' | 'large' => {
   if (SCREEN_WIDTH < breakpoints.small) return 'small';
