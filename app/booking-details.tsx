@@ -530,7 +530,9 @@ export default function BookingDetailsScreen() {
                 onPress={() => router.push('/payment-method')}
                 activeOpacity={0.8}
               >
-                <Text style={styles.secondaryButtonText}>📋 Book Without Protection</Text>
+                <Text style={styles.secondaryButtonText} numberOfLines={0} allowFontScaling={false}>
+                  📋 Book Without Protection
+                </Text>
               </TouchableOpacity>
             </>
           ) : (
@@ -547,7 +549,9 @@ export default function BookingDetailsScreen() {
                   end={{ x: 1, y: 0 }}
                 >
                   <CheckCircle size={20} color="#FFFFFF" strokeWidth={2.5} />
-                  <Text style={styles.primaryButtonText}>Complete Booking - {formatCurrency(currentTotal)}</Text>
+                  <Text style={styles.primaryButtonText} numberOfLines={0} allowFontScaling={false}>
+                    Complete Booking - {formatCurrency(currentTotal)}
+                  </Text>
                 </LinearGradient>
               </TouchableOpacity>
 
@@ -556,7 +560,9 @@ export default function BookingDetailsScreen() {
                 onPress={() => router.push('/(tabs)/manage')}
                 activeOpacity={0.8}
               >
-                <Text style={styles.secondaryButtonText}>✏️ Manage Booking</Text>
+                <Text style={styles.secondaryButtonText} numberOfLines={0} allowFontScaling={false}>
+                  ✏️ Manage Booking
+                </Text>
               </TouchableOpacity>
 
               <TouchableOpacity 
@@ -564,22 +570,30 @@ export default function BookingDetailsScreen() {
                 onPress={handleRemoveAssuredFee}
                 activeOpacity={0.8}
               >
-                <Text style={styles.tertiaryButtonText}>Remove Assured Fee</Text>
+                <Text style={styles.tertiaryButtonText} numberOfLines={0} allowFontScaling={false}>
+                  Remove Assured Fee
+                </Text>
               </TouchableOpacity>
             </>
           )}
 
           {/* Support Options */}
           <View style={styles.supportSection}>
-            <Text style={styles.supportHeader}>Need help?</Text>
+            <Text style={styles.supportHeader} numberOfLines={0} allowFontScaling={false}>
+              Need help?
+            </Text>
             <View style={styles.supportButtons}>
               <TouchableOpacity style={styles.supportButton}>
                 <MessageCircle size={16} color="#FF6B35" />
-                <Text style={styles.supportButtonText}>💬 Chat</Text>
+                <Text style={styles.supportButtonText} numberOfLines={1} allowFontScaling={false}>
+                  💬 Chat
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.supportButton}>
                 <Phone size={16} color="#FF6B35" />
-                <Text style={styles.supportButtonText}>📞 Call</Text>
+                <Text style={styles.supportButtonText} numberOfLines={1} allowFontScaling={false}>
+                  📞 Call
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -591,7 +605,9 @@ export default function BookingDetailsScreen() {
             style={styles.expandableHeader}
             onPress={() => toggleSection('tripDetails')}
           >
-            <Text style={styles.expandableTitle}>▼ Trip Details</Text>
+            <Text style={styles.expandableTitle} numberOfLines={0} allowFontScaling={false}>
+              ▼ Trip Details
+            </Text>
             <ChevronDown 
               size={20} 
               color="#6B7280" 
@@ -605,9 +621,15 @@ export default function BookingDetailsScreen() {
           
           {expandedSections.includes('tripDetails') && (
             <View style={styles.expandableContent}>
-              <Text style={styles.expandableText}>• Baggage allowance: 1 carry-on included</Text>
-              <Text style={styles.expandableText}>• Seat selection available at checkout</Text>
-              <Text style={styles.expandableText}>• Meal service: Snacks available for purchase</Text>
+              <Text style={styles.expandableText} numberOfLines={0} allowFontScaling={false}>
+                • Baggage allowance: 1 carry-on included
+              </Text>
+              <Text style={styles.expandableText} numberOfLines={0} allowFontScaling={false}>
+                • Seat selection available at checkout
+              </Text>
+              <Text style={styles.expandableText} numberOfLines={0} allowFontScaling={false}>
+                • Meal service: Snacks available for purchase
+              </Text>
             </View>
           )}
         </View>
@@ -1102,6 +1124,9 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#FFFFFF',
     letterSpacing: 0.5,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    lineHeight: 20,
   },
   secondaryButton: {
     backgroundColor: '#FFFFFF',
@@ -1117,6 +1142,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: '#FF6B35',
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    lineHeight: 20,
   },
   tertiaryButton: {
     paddingVertical: 12,
@@ -1127,6 +1155,9 @@ const styles = StyleSheet.create({
     color: '#6B7280',
     fontWeight: '500',
     textDecorationLine: 'underline',
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    lineHeight: 18,
   },
   
   // Support Section
@@ -1139,6 +1170,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#6B7280',
     fontWeight: '500',
+    flexWrap: 'wrap',
+    lineHeight: 18,
   },
   supportButtons: {
     flexDirection: 'row',
@@ -1153,6 +1186,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#FF6B35',
     fontWeight: '600',
+    flexWrap: 'wrap',
+    lineHeight: 18,
   },
   
   // Expandable Sections
@@ -1179,6 +1214,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: '#374151',
+    flexWrap: 'wrap',
+    flexShrink: 1,
+    minWidth: 0,
+    lineHeight: 20,
   },
   expandableContent: {
     backgroundColor: '#F9FAFB',
@@ -1191,6 +1230,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#6B7280',
     lineHeight: 20,
+    flexWrap: 'wrap',
+    flexShrink: 1,
+    minWidth: 0,
   },
   
   // Empty State
